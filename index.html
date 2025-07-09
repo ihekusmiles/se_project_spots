@@ -15,10 +15,86 @@
   </head>
   <body>
     <div class="page">
-      <header class="header"></header>
+      <header class="header">
+        <img class="header__logo" src="./images/Logo.svg" alt="Spots logo" />
+      </header>
       <main class="content">
-        <section class="profile"></section>
-        <section class="cards"></section>
+        <section class="profile page__alignment">
+          <img
+            class="profile__avatar"
+            src="./images/avatar.jpg"
+            alt="User's profile avatar"
+          />
+          <div class="profile__data">
+            <h1 class="profile__name">Bessie Coleman</h1>
+            <p class="profile__description">Civil Aviator</p>
+            <button class="profile__edit-btn" type="button">
+              <img src="./images/edit_icon.png" atl="Edit icon" />Edit Profile
+            </button>
+          </div>
+          <button class="profile__new-post-btn" type="button">
+            <img
+              class="profile__plus-image"
+              src="./images/plus_icon.png"
+              alt="Plus plus_icon"
+            />
+            New Post
+          </button>
+        </section>
+        <section class="cards page__alignment">
+          <div class="cards__grid-element">
+            <img
+              src="./images/1-photo-by-moritz-feldmann-from-pexels.jpg"
+              alt=""
+              class="card__image"
+            />
+            <div class="card__image-description">
+              <p class="card__title">Val Thorens</p>
+              <button class="like__button" type="button">
+                <img
+                  src="./images/like_icon.png"
+                  alt="Val Thorens image"
+                  class="like__icon"
+                />
+              </button>
+            </div>
+          </div>
+          <div class="cards__grid-element">
+            <img
+              src="./images/2-photo-by-ceiline-from-pexels.jpg"
+              alt=""
+              class="card__image"
+            />
+          </div>
+          <div class="cards__grid-element">
+            <img
+              src="./images/3-photo-by-tubanur-dogan-from-pexels.jpg"
+              alt=""
+              class="card__image"
+            />
+          </div>
+          <div class="cards__grid-element">
+            <img
+              src="./images/4-photo-by-maurice-laschet-from-pexels.jpg"
+              alt=""
+              class="card__image"
+            />
+          </div>
+          <div class="cards__grid-element">
+            <img
+              src="./images/5-photo-by-van-anh-nguyen-from-pexels.jpg"
+              alt=""
+              class="card__image"
+            />
+          </div>
+          <div class="cards__grid-element">
+            <img
+              src="./images/6-photo-by-moritz-feldmann-from-pexels.jpg"
+              alt=""
+              class="card__image"
+            />
+          </div>
+        </section>
       </main>
       <footer class="footer"></footer>
     </div>

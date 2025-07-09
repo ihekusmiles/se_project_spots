@@ -2,3 +2,11 @@
   background-color: #fcf5e5;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
 }
+
+/* The bottom mix is used on both the profile and
+cards sections */
+.page__alignment {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px 0;
+}
