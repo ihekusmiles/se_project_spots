@@ -1,3 +1,6 @@
+/* Adding padding to main element in order
+to keep shriking viewport from touching the blocks */
+
 .content {
   padding: 0 20px;
 }
