@@ -12,11 +12,11 @@
 .profile__data {
   display: flex;
   flex-direction: column;
-  max-width: 420px;
+  width: 420px;
 }
 
 .profile__name {
-  margin: 0px 0px 12px;
+  margin: 0;
   font-weight: 500;
   line-height: 1;
   display: -webkit-box; /* Required for -webkit-line-clamp */
@@ -27,11 +27,12 @@
 
 .profile__description {
   margin: 0;
+  padding-top: 12px;
   opacity: 70%;
   font-weight: 500;
   line-height: 1;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -78,4 +79,47 @@
 .profile__plus-image {
   height: 12px;
   width: 12px;
+}
+
+@media screen and (max-width: 630px) {
+  .profile {
+    flex-direction: column;
+    width: 288px;
+    margin: 0 auto;
+  }
+
+  .profile__avatar {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    padding-top: 20px;
+  }
+
+  .profile__data {
+    width: 100%;
+  }
+
+  .profile__name {
+    font-size: 20px;
+    margin: 0 auto;
+    padding-top: 12px;
+  }
+
+  .profile__description {
+    font-size: 16px;
+    padding-bottom: 32px;
+    margin: 0 auto;
+  }
+
+  .profile__edit-btn {
+    font-size: 16px;
+    padding-bottom: 32px;
+    margin: 0 auto;
+  }
+
+  .profile__new-post-btn {
+    font-size: 16px;
+    width: 288px;
+    margin: 0 auto;
+  }
 }

@@ -3,6 +3,7 @@
   display: flex;
   justify-content: center;
   margin-bottom: 34px;
+  margin: 0 auto;
 }
 
 .header__logo {
