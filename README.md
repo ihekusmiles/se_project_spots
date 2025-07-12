@@ -13,6 +13,8 @@
 
 This project aims to provide an interative social media webpage called Spots, where users can add and remove photos, interact with them, and make minor adjustments to their profile.
 
+- [Github link to the project](https://github.com/ihekusmiles/se_project_spots)
+
 ## Project description
 
 In this project, only the layout with hover effects are laid out. In terms of web development, the major focus of this project is to practice using various technologies such as CSS, HTML, flex, grid, and media queries in order to provide users a webpage that can be viewed on different screen sizes eg. desktop, tablet, and phone. The goal: Have all elements display correctly on popular screen sizes.
