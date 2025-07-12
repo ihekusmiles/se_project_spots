@@ -1,8 +1,7 @@
 .cards {
   display: grid;
   margin: 0 auto;
-  padding-top: 20px;
-  padding-bottom: 40px;
+  padding: 20px 0 40px 0;
   max-width: 1280px;
   grid-template-columns: repeat(auto-fit, 413px);
   gap: 40px 20px;
@@ -55,7 +54,7 @@
   width: 23px;
 }
 
-@media screen and (min-height: 320px) and (max-width: 630px) {
+@media screen and (max-width: 630px) {
   .cards {
     grid-template-columns: repeat(auto-fit, 288px);
     padding-bottom: 20px;
@@ -65,6 +64,7 @@
   .card__image {
     max-height: 288px;
     width: 288px;
+    max-width: 100%;
   }
 
   .card__title {
