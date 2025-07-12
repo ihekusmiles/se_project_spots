@@ -13,7 +13,7 @@
 .profile__data {
   display: flex;
   flex-direction: column;
-  width: 420px;
+  max-width: 420px;
 }
 
 .profile__name {
@@ -33,7 +33,7 @@
   font-weight: 500;
   line-height: 1;
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -104,18 +104,25 @@
   .profile__name {
     font-size: 20px;
     max-width: 288px;
+    text-align: center;
     padding-top: 12px;
   }
 
   .profile__description {
     font-size: 16px;
-    padding-bottom: 32px;
-    max-width: 288px;
+    margin-bottom: 32px;
+    padding-top: 6px;
+    width: 288px;
+    text-align: center;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .profile__edit-btn {
     font-size: 16px;
-    padding-bottom: 32px;
+    padding-bottom: 20px;
     max-width: 288px;
   }
 
