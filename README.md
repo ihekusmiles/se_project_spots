@@ -11,9 +11,10 @@
 
 **Intro**
 
-This project aims to provide an interative social media webpage called Spots, where users can add and remove photos, interact with them, and make minor adjustments to their profile.
+This project aims to provide an interactive social media webpage called Spots, where users can add and remove photos, interact with them, and make minor adjustments to their profile.
 
 - [Github link to the project](https://github.com/ihekusmiles/se_project_spots)
+- [Video link to the project](https://drive.google.com/file/d/1FTMmD2k7y3yyo10hzk2VYjBbEjS9-gdl/view?usp=sharing)
 
 ## Project description
 
