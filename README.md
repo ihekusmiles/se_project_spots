@@ -3,6 +3,7 @@
 ### Overview
 
 - Intro
+- Project links
 - Project description
 - Project features
 - Figma
@@ -13,7 +14,9 @@
 
 This project aims to provide an interactive social media webpage called Spots, where users can add and remove photos, interact with them, and make minor adjustments to their profile.
 
-- [Github link to the project](https://github.com/ihekusmiles/se_project_spots)
+## Project links
+
+- [Github Page link to the project](https://ihekusmiles.github.io/se_project_spots/)
 - [Video link to the project](https://drive.google.com/file/d/1FTMmD2k7y3yyo10hzk2VYjBbEjS9-gdl/view?usp=sharing)
 
 ## Project description
