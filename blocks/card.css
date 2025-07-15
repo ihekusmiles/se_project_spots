@@ -33,6 +33,7 @@ inside the button as shown below: */
 .card__like-btn {
   display: flex;
   background-image: url(../images/like_icon.svg);
+  background-color: transparent;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -47,7 +48,6 @@ inside the button as shown below: */
 .card__like-btn:hover {
   opacity: 1;
   cursor: pointer;
-  background-color: #fcf5e5;
 }
 
 @media screen and (max-width: 630px) {
