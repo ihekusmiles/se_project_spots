@@ -49,7 +49,7 @@ display images with any proportions */
   margin-top: auto;
   width: fit-content;
   border: none;
-  background-color: #fcf5e5;
+  background-color: transparent;
   font-weight: 500;
   line-height: 1;
   opacity: 70%;
