@@ -4,9 +4,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  /* Originally had width: 100% and height: 100%*,
+  but setting sides to 0 works too*/
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: rgba(0, 0, 0, 0.5);
+  z-index: 9999; /*Added this to prevent page buttons from showing*/
+  padding: 0 12px;
 }
 
 .modal_is-opened {
@@ -16,7 +22,7 @@
 .modal__container {
   display: flex;
   flex-direction: column;
-  padding: 32px 50px 32px;
+  padding: 32px 50px;
   max-width: 730px;
   width: 100%;
   border-radius: 8px;
@@ -32,6 +38,7 @@
 }
 
 .modal__edit-profile-text {
+  color: #212121;
   margin: 0;
   font-size: 32px;
   font-weight: 500;
@@ -41,13 +48,20 @@
 .modal__close-btn {
   background-image: url(../images/close_button.svg);
   background-color: transparent;
-  /* background-size: contain; */
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  opacity: 40%;
   width: 40px;
   height: 40px;
   border: none;
   padding: 0;
+}
+
+.modal__close-btn:hover {
+  cursor: pointer;
+  color: #212121;
+  opacity: 100%;
 }
 
 .modal__form {
@@ -64,8 +78,10 @@
 }
 
 .modal__input {
+  font-size: 20px;
+  font-weight: 500;
   margin: 0;
-  padding: 16px 454px 16px 12px;
+  padding: 16px 0 16px 12px;
   border-radius: 8px;
   margin-bottom: 32px;
   border: 1px solid rgba(33, 33, 33, 0.4);
@@ -75,6 +91,11 @@
   font-size: 20px;
   font-weight: 500;
   color: rgba(33, 33, 33, 0.3);
+}
+
+.modal__input:hover {
+  cursor: pointer;
+  border: 1px solid rgba(33, 33, 33);
 }
 
 .modal__save-btn {
@@ -87,4 +108,39 @@
   font-size: 16px;
   font-weight: 500;
   color: #fcf5e5;
+}
+
+@media screen and (max-width: 630px) {
+  .modal__container {
+    box-sizing: border-box;
+    max-width: 300px;
+    padding: 12px 12px;
+  }
+
+  .modal__row {
+    max-width: 276px;
+    margin-bottom: 24px;
+  }
+
+  .modal__edit-profile-text {
+    font-size: 20px;
+  }
+
+  .modal__input {
+    margin-bottom: 24px;
+  }
+
+  .modal__input::placeholder {
+    font-size: 16px;
+  }
+
+  .modal__save-btn {
+    margin: 0 auto;
+    max-width: 276px;
+    width: 100%;
+  }
+
+  .modal__form {
+    max-width: 276px;
+  }
 }
