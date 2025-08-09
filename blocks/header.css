@@ -2,8 +2,7 @@
   background-color: #fff;
   display: flex;
   justify-content: center;
-  margin-bottom: 34px;
-  margin: 0 auto;
+  margin: 0 auto 34px;
 }
 
 .header__logo {
