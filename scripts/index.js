@@ -1,3 +1,30 @@
+const initialCards = [
+  {
+    name: "Mount Fuji in a clear sky",
+    link: "https://unsplash.com/photos/mt-fuji-japan-9Qwbfa_RM94",
+  },
+  {
+    name: "Japanese people walking at night in Tokyo",
+    link: "https://unsplash.com/photos/people-walking-near-buildings-at-night-DpPutJwgyW8",
+  },
+  {
+    name: "Architectural photo of Tokyo Tower",
+    link: "https://unsplash.com/photos/architectural-photo-of-tower-between-buildings-7H77FWkK_x4",
+  },
+  {
+    name: "Lighted Chinese lantern by an alley",
+    link: "https://unsplash.com/photos/lighted-chinese-lantern-5-GNa303REg",
+  },
+  {
+    name: "Himeji Castle",
+    link: "https://unsplash.com/photos/photo-of-himeji-castle-wPMvPMD9KBI",
+  },
+  {
+    name: "Two women in purple and pink kimono",
+    link: "https://unsplash.com/photos/two-women-in-purple-and-pink-kimono-cATZ2eHu5ys",
+  },
+];
+
 const editProfileBtn = document.querySelector(".profile__edit-btn");
 const profileModal = document.querySelector("#edit-profile-modal");
 const profileCloseBtn = profileModal.querySelector(".modal__close-btn");
@@ -62,4 +89,8 @@ newPostBtn.addEventListener("click", function () {
 
 newPostCloseBtn.addEventListener("click", function () {
   closeModal(newPostModal);
+});
+
+initialCards.forEach(function (card) {
+  console.log(card["name"]);
 });
