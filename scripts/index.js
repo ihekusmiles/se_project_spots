@@ -47,6 +47,9 @@ const addCardForm = newPostModal.querySelector(".modal__form");
 const postNameInput = addCardForm.querySelector("#image-link");
 const postCaptionInput = addCardForm.querySelector("#image-caption");
 
+// The following two functions are reusable and their sole
+// function is to close and open modals:
+
 function openModal(modal) {
   modal.classList.add("modal_is-opened");
 }

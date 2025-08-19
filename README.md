@@ -8,6 +8,7 @@
 - Project features
 - Figma
 - Images
+- Javascript Integration
 - Plan on improving project
 
 **Intro**
@@ -21,7 +22,7 @@ This project aims to provide an interactive social media webpage called Spots, w
 
 ## Project description
 
-In this project, only the layout with hover effects are laid out. In terms of web development, the major focus of this project is to practice using various technologies such as CSS, HTML, flex, grid, and media queries in order to provide users a webpage that can be viewed on different screen sizes eg. desktop, tablet, and phone. The goal: Have all elements display correctly on popular screen sizes.
+In this project, only the layout with hover effects are laid out. In terms of web development, the major focus of this project is to practice using various technologies such as HTML, CSS, JavaScript, flex, grid, and media queries in order to provide users a webpage that can be viewed on different screen sizes eg. desktop, tablet, and phone.
 
 ## Project features
 
@@ -32,6 +33,7 @@ In this project, only the layout with hover effects are laid out. In terms of we
 - Media Queries
 - Responsive Design
 - Ellipsis for long text
+- JavaScript integration
 
 **Figma**
 
@@ -52,6 +54,10 @@ On a tablet between approximately 880px and 1320px there are two cards in each r
 At the smallest viewport, between 320px and 630px, the layout changes to a single card per row. Other elements such as font sizes/padding and margin distances as well as the profile button and profile avatar change in size accordingly:
 
 ![Page at 435px](./images/435px.png)
+
+**Javascript Integration**
+
+Javascript is used in order to select elements and manipulate page behavior without touching HTML code. Furthermore, Javascript is used to close and open modals using functions and the Event Listener method.
 
 ## Plan on improving project
 
