@@ -1,27 +1,27 @@
 const initialCards = [
   {
     name: "Mount Fuji in a clear sky",
-    link: "https://unsplash.com/photos/mt-fuji-japan-9Qwbfa_RM94",
+    link: "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     name: "Japanese people walking at night in Tokyo",
-    link: "https://unsplash.com/photos/people-walking-near-buildings-at-night-DpPutJwgyW8",
+    link: "https://images.unsplash.com/photo-1501560379-05951a742668?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     name: "Architectural photo of Tokyo Tower",
-    link: "https://unsplash.com/photos/architectural-photo-of-tower-between-buildings-7H77FWkK_x4",
+    link: "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?q=80&w=2036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     name: "Lighted Chinese lantern by an alley",
-    link: "https://unsplash.com/photos/lighted-chinese-lantern-5-GNa303REg",
+    link: "https://images.unsplash.com/photo-1534214526114-0ea4d47b04f2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     name: "Himeji Castle",
-    link: "https://unsplash.com/photos/photo-of-himeji-castle-wPMvPMD9KBI",
+    link: "https://images.unsplash.com/photo-1491884662610-dfcd28f30cfb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     name: "Two women in purple and pink kimono",
-    link: "https://unsplash.com/photos/two-women-in-purple-and-pink-kimono-cATZ2eHu5ys",
+    link: "https://images.unsplash.com/photo-1494588024300-e9df7ff98d78?q=80&w=1968&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
 ];
 
@@ -94,6 +94,23 @@ newPostCloseBtn.addEventListener("click", function () {
   closeModal(newPostModal);
 });
 
-initialCards.forEach(function (card) {
-  console.log(card["name"]);
+// Sprint 5 Stage 8:
+
+const cardTemplate = document.querySelector("#cards-template").content;
+const cardContainer = document.querySelector(".cards__list");
+
+function getCardElement(data) {
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  const cardImage = cardElement.querySelector(".card__image");
+  const cardTitle = cardElement.querySelector(".card__title");
+  cardTitle.textContent = data.name;
+  cardImage.src = data.link;
+  cardImage.alt = data.name;
+
+  return cardElement;
+}
+
+initialCards.forEach((card) => {
+  const newCard = getCardElement(card);
+  cardContainer.prepend(newCard);
 });

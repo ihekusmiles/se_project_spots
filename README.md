@@ -57,7 +57,7 @@ At the smallest viewport, between 320px and 630px, the layout changes to a singl
 
 **Javascript Integration**
 
-Javascript is used in order to select elements and manipulate page behavior without touching HTML code. Furthermore, Javascript is used to close and open modals using functions and the Event Listener method.
+Javascript is used in order to select elements and manipulate page behavior using Document Object Model (DOM) without touching HTML code. Furthermore, Javascript is used to close and open modals using functions and the Event Listener method.
 
 ## Plan on improving project
 
