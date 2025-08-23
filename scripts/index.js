@@ -1,3 +1,4 @@
+// --- 1. CONSTANTS ---
 const initialCards = [
   {
     name: "Mount Fuji in a clear sky",
@@ -25,30 +26,35 @@ const initialCards = [
   },
 ];
 
+// Profile buttons and Profile Modal
 const editProfileBtn = document.querySelector(".profile__edit-btn");
 const profileModal = document.querySelector("#edit-profile-modal");
 const profileCloseBtn = profileModal.querySelector(".modal__close-btn");
 
+// New Post buttons and New Post Modal
 const newPostBtn = document.querySelector(".profile__new-post-btn");
 const newPostModal = document.querySelector("#new-post-modal");
 const newPostCloseBtn = newPostModal.querySelector(".modal__close-btn");
 
+// Profile name and description selectors
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
-// Selecting profileForm element from modal profileModal
-// and then using profileForm to select inputs
+// Profile modal inputs
 const profileForm = profileModal.querySelector(".modal__form");
 const nameInput = profileForm.querySelector("#name");
 const descriptionInput = profileForm.querySelector("#description");
-// Selecting addCardForm element from modal newPostModal
-// and then using addCardForm to select inputs
+
+// New Post modal inputs
 const addCardForm = newPostModal.querySelector(".modal__form");
 const postLinkInput = addCardForm.querySelector("#image-link");
 const postCaptionInput = addCardForm.querySelector("#image-caption");
 
-// The following two functions are reusable and their sole
-// function is to close and open modals:
+// Select cards-template and cards__list card container
+const cardTemplate = document.querySelector("#cards-template").content;
+const cardContainer = document.querySelector(".cards__list");
+
+// --- 2. FUNCTIONS ---
 
 function openModal(modal) {
   modal.classList.add("modal_is-opened");
@@ -58,6 +64,7 @@ function closeModal(modal) {
   modal.classList.remove("modal_is-opened");
 }
 
+// Function called when clicking the PROFILE 'save' submit button
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
@@ -65,25 +72,40 @@ function handleProfileFormSubmit(evt) {
   closeModal(profileModal);
 }
 
-profileForm.addEventListener("submit", handleProfileFormSubmit);
-
+// Function called when clicking the NEW POST 'save' submit button
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
-
   const newInput = {
     name: postCaptionInput.value,
     link: postLinkInput.value,
   };
-  // console.log(postLinkInput.value);
-  // console.log(postCaptionInput.value);
   const newCard = getCardElement(newInput);
   cardContainer.prepend(newCard);
   closeModal(newPostModal);
 }
 
-// When adding NEW IMAGE, hitting submit it will call handleAddCardSubmit above
-addCardForm.addEventListener("submit", handleAddCardSubmit);
+// Function that creates a new card element, card name, card link and card alt
+function getCardElement(data) {
+  //For debugging purposes I am using console.log for this data:
+  // console.log("Data received in getCardElement:", data);
+  // console.log("data.name:", data.name);
+  // console.log("data.link:", data.link);
 
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  const cardImage = cardElement.querySelector(".card__image");
+  const cardTitle = cardElement.querySelector(".card__title");
+  const likeButton = cardElement.querySelector(".card__like-btn");
+  cardTitle.textContent = data.name;
+  cardImage.src = data.link;
+  cardImage.alt = data.name;
+  likeButton.addEventListener("click", function () {
+    likeButton.classList.toggle("card__like-btn_active");
+  });
+  return cardElement;
+}
+
+// --- 3. EVENT HANDLERS ---
+// Profile edit open and close handlers:
 editProfileBtn.addEventListener("click", function () {
   openModal(profileModal);
   nameInput.value = profileName.textContent;
@@ -94,6 +116,7 @@ profileCloseBtn.addEventListener("click", function () {
   closeModal(profileModal);
 });
 
+// New Post open and close handlers:
 newPostBtn.addEventListener("click", function () {
   openModal(newPostModal);
 });
@@ -102,26 +125,14 @@ newPostCloseBtn.addEventListener("click", function () {
   closeModal(newPostModal);
 });
 
-// Sprint 5 Stage 8:
+// Clicking "submit" save button will call the handleAddCardSubmit function
+addCardForm.addEventListener("submit", handleAddCardSubmit);
 
-const cardTemplate = document.querySelector("#cards-template").content;
-const cardContainer = document.querySelector(".cards__list");
+profileForm.addEventListener("submit", handleProfileFormSubmit);
 
-function getCardElement(data) {
-  //For debugging purposes I am using console.log:
-  console.log("Data received in getCardElement:", data);
-  console.log("data.name:", data.name);
-  console.log("data.link:", data.link);
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-  const cardImage = cardElement.querySelector(".card__image");
-  const cardTitle = cardElement.querySelector(".card__title");
-  cardTitle.textContent = data.name;
-  cardImage.src = data.link;
-  cardImage.alt = data.name;
-
-  return cardElement;
-}
-
+// Loops through each item in the array, creates a new card
+// and prepends it to cardContainer.
+// This code is only here to grab the "hard-coded" 6 cards
 initialCards.forEach((card) => {
   const newCard = getCardElement(card);
   cardContainer.prepend(newCard);
