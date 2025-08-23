@@ -44,7 +44,7 @@ const descriptionInput = profileForm.querySelector("#description");
 // Selecting addCardForm element from modal newPostModal
 // and then using addCardForm to select inputs
 const addCardForm = newPostModal.querySelector(".modal__form");
-const postNameInput = addCardForm.querySelector("#image-link");
+const postLinkInput = addCardForm.querySelector("#image-link");
 const postCaptionInput = addCardForm.querySelector("#image-caption");
 
 // The following two functions are reusable and their sole
@@ -69,11 +69,19 @@ profileForm.addEventListener("submit", handleProfileFormSubmit);
 
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
-  console.log(postNameInput.value);
-  console.log(postCaptionInput.value);
+
+  const newInput = {
+    name: postCaptionInput.value,
+    link: postLinkInput.value,
+  };
+  // console.log(postLinkInput.value);
+  // console.log(postCaptionInput.value);
+  const newCard = getCardElement(newInput);
+  cardContainer.prepend(newCard);
   closeModal(newPostModal);
 }
 
+// When adding NEW IMAGE, hitting submit it will call handleAddCardSubmit above
 addCardForm.addEventListener("submit", handleAddCardSubmit);
 
 editProfileBtn.addEventListener("click", function () {
@@ -100,6 +108,10 @@ const cardTemplate = document.querySelector("#cards-template").content;
 const cardContainer = document.querySelector(".cards__list");
 
 function getCardElement(data) {
+  //For debugging purposes I am using console.log:
+  console.log("Data received in getCardElement:", data);
+  console.log("data.name:", data.name);
+  console.log("data.link:", data.link);
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
   const cardTitle = cardElement.querySelector(".card__title");
