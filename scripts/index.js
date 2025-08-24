@@ -24,6 +24,10 @@ const initialCards = [
     name: "Two women in purple and pink kimono",
     link: "https://images.unsplash.com/photo-1494588024300-e9df7ff98d78?q=80&w=1968&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
+  {
+    name: "Golden Gate bridge",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
+  },
 ];
 
 // Profile buttons and Profile Modal
@@ -53,6 +57,14 @@ const postCaptionInput = addCardForm.querySelector("#image-caption");
 // Select cards-template and cards__list card container
 const cardTemplate = document.querySelector("#cards-template").content;
 const cardContainer = document.querySelector(".cards__list");
+
+// Select modal image preview
+const previewImageModal = document.querySelector("#preview-modal");
+const closePreviewImage = previewImageModal.querySelector(
+  ".modal__close-button"
+);
+const modalImage = previewImageModal.querySelector(".modal__image");
+const modalCaption = previewImageModal.querySelector(".modal__caption");
 
 // --- 2. FUNCTIONS ---
 
@@ -84,6 +96,10 @@ function handleAddCardSubmit(evt) {
   closeModal(newPostModal);
 }
 
+// Close image preview modal
+closePreviewImage.addEventListener("click", function () {
+  closeModal(previewImageModal);
+});
 // Function that creates a new card element, card name, card link and card alt
 function getCardElement(data) {
   //For debugging purposes I am using console.log for this data:
@@ -106,6 +122,13 @@ function getCardElement(data) {
   deleteCardBtn.addEventListener("click", function () {
     cardElement.remove();
   });
+  cardImage.addEventListener("click", function () {
+    modalCaption.textContent = data.name;
+    modalImage.src = data.link;
+    modalImage.alt = data.name;
+    openModal(previewImageModal);
+  });
+
   return cardElement;
 }
 

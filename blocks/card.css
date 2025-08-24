@@ -15,7 +15,6 @@
   left: 371px;
   width: 32px;
   height: 32px;
-  z-index: 9999;
 }
 
 .card__delete-btn:hover {
