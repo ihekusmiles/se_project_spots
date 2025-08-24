@@ -90,19 +90,16 @@ function handleAddCardSubmit(evt) {
   const newCard = getCardElement(newInput);
   cardContainer.prepend(newCard);
   closeModal(newPostModal);
+  evt.target.reset(); // or addCardForm.reset()
 }
 
 // Close image preview modal
 closePreviewImage.addEventListener("click", function () {
   closeModal(previewImageModal);
 });
+
 // Function that creates a new card element, card name, card link and card alt
 function getCardElement(data) {
-  //For debugging purposes I am using console.log for this data:
-  // console.log("Data received in getCardElement:", data);
-  // console.log("data.name:", data.name);
-  // console.log("data.link:", data.link);
-
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
   const cardTitle = cardElement.querySelector(".card__title");
@@ -111,7 +108,7 @@ function getCardElement(data) {
   cardTitle.textContent = data.name;
   cardImage.src = data.link;
   cardImage.alt = data.name;
-
+  // Event listeners inside function:
   likeButton.addEventListener("click", function () {
     likeButton.classList.toggle("card__like-btn_active");
   });

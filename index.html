@@ -25,7 +25,7 @@
               type="button"
               class="modal__close-btn modal__close-btn_type_preview"
             ></button>
-            <img class="modal__image" src="" alt="" />
+            <img class="modal__image" src="#" alt="#" />
           </div>
           <p class="modal__caption"></p>
         </div>
@@ -49,6 +49,7 @@
               id="name"
               name="name"
               placeholder="Type your name"
+              required
             />
             <label for="description" class="modal__label">Description</label>
             <input
@@ -57,6 +58,7 @@
               id="description"
               name="description"
               placeholder="Describe yourself"
+              required
             />
             <button type="submit" class="modal__save-btn">Save</button>
           </form>
@@ -80,6 +82,7 @@
               id="image-link"
               name="image-link"
               placeholder="Paste a link to the picture"
+              required
             />
             <label for="image-caption" class="modal__label">Caption</label>
             <input
@@ -88,6 +91,7 @@
               id="image-caption"
               name="image-caption"
               placeholder="Type your caption"
+              required
             />
             <button type="submit" class="modal__save-btn">Save</button>
           </form>
@@ -124,7 +128,11 @@
           <ul class="cards__list"></ul>
           <template id="cards-template">
             <li class="card">
-              <button type="button" class="card__delete-btn"></button>
+              <button
+                aria-label="Delete card"
+                type="button"
+                class="card__delete-btn"
+              ></button>
               <img class="card__image" src="#" alt="" />
               <div class="card__content">
                 <h2 class="card__title"></h2>
