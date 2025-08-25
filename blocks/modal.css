@@ -36,16 +36,13 @@
   box-sizing: border-box; /* To include padding in its width */
 }
 
-/* FOR REVIEWER: I can't seem to figure out how to make the
-image parent container hug the image in portrait mode.
-Hence, I made background-color: red for debugging purposes, but
-I am aware that is should be transparent. */
 .modal__container_type_preview {
   position: relative;
   padding: 0;
   border-radius: 8px;
-  background-color: red;
+  background-color: transparent;
   text-align: center;
+  width: auto;
 }
 
 .modal__image {
