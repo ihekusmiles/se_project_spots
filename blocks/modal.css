@@ -42,7 +42,7 @@
   border-radius: 8px;
   background-color: transparent;
   text-align: center;
-  width: auto;
+  width: auto; /* Can also use max-width: fit-content */
 }
 
 .modal__image {
