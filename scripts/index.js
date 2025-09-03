@@ -42,8 +42,8 @@ const profileDescription = document.querySelector(".profile__description");
 
 // Profile modal inputs
 const profileForm = profileModal.querySelector(".modal__form");
-const nameInput = profileForm.querySelector("#name");
-const descriptionInput = profileForm.querySelector("#description");
+const nameInput = profileForm.querySelector("#profile-name");
+const descriptionInput = profileForm.querySelector("#profile-description");
 
 // New Post modal inputs
 const addCardForm = newPostModal.querySelector(".modal__form");

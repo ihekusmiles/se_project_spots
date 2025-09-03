@@ -28,7 +28,7 @@
           <p class="modal__caption"></p>
         </div>
       </div>
-
+      <!-- EDIT PROFILE MODAL -->
       <div class="modal" id="edit-profile-modal">
         <div class="modal__container">
           <div class="modal__row">
@@ -43,25 +43,32 @@
             <label for="name" class="modal__label">Name</label>
             <input
               type="text"
+              minlength="2"
+              maxlength="40"
               class="modal__input"
-              id="name"
+              id="profile-name"
               name="name"
               placeholder="Type your name"
               required
             />
+            <span class="modal__error" id="profile-name-error"></span>
             <label for="description" class="modal__label">Description</label>
             <input
               type="text"
+              minlength="2"
+              maxlength="200"
               class="modal__input"
-              id="description"
+              id="profile-description"
               name="description"
               placeholder="Describe yourself"
               required
             />
+            <span class="modal__error" id="profile-description-error"></span>
             <button type="submit" class="modal__save-btn">Save</button>
           </form>
         </div>
       </div>
+      <!-- NEW POST MODAL -->
       <div class="modal" id="new-post-modal">
         <div class="modal__container">
           <div class="modal__row">
@@ -82,15 +89,19 @@
               placeholder="Paste a link to the picture"
               required
             />
+            <span class="modal__error" id="image-link-error"></span>
             <label for="image-caption" class="modal__label">Caption</label>
             <input
               type="text"
+              minlength="2"
+              maxlength="30"
               class="modal__input"
               id="image-caption"
               name="image-caption"
               placeholder="Type your caption"
               required
             />
+            <span class="modal__error" id="image-caption-error"></span>
             <button type="submit" class="modal__save-btn">Save</button>
           </form>
         </div>
@@ -122,6 +133,7 @@
             New Post
           </button>
         </section>
+        <!-- CARDS SECTION -->
         <section class="cards">
           <ul class="cards__list"></ul>
           <template id="cards-template">
@@ -144,6 +156,7 @@
         <p class="footer__box">2025 © Spots</p>
       </footer>
     </div>
+    <script src="./scripts/validation.js"></script>
     <script src="./scripts/index.js"></script>
   </body>
 </html>
