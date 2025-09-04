@@ -157,6 +157,11 @@
   border-bottom-color: red;
 }
 
+/* This styles the actual input box eg. border, input font etc */
+.modal__input_type_error {
+  border-color: red;
+}
+
 .modal__save-btn {
   max-width: 156px;
   max-height: 52px;
