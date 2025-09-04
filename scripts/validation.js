@@ -9,7 +9,6 @@ const settings = {
 
 const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  console.log(errorElement);
   inputElement.classList.add(settings.inputErrorClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(settings.errorClass);
@@ -31,15 +30,37 @@ const checkInputValidity = (formElement, inputElement) => {
   }
 };
 
+// Passing inputList to this function. This will return
+// true if at least one field is invalid, and return false
+// if all of them are valid.
+const hasInvalidInput = (inputList, formElement) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+};
+
+const toggleButtonState = (inputList, buttonElement) => {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add(settings.inactiveButtonClass);
+    buttonElement.disabled = true;
+  } else {
+    buttonElement.classList.remove(settings.inactiveButtonClass);
+    buttonElement.disabled = false;
+  }
+};
+
 // For each input -> add event listener that calls checkInputValidity()
 const setEventListeners = (formElement, config) => {
-  const inputList = formElement.querySelectorAll(config.inputSelector);
-  const buttonElement = formElement.querySelectorAll(
-    config.submitButtonSelector
+  const inputList = Array.from(
+    formElement.querySelectorAll(config.inputSelector)
   );
+  const buttonElement = formElement.querySelector(config.submitButtonSelector);
+  toggleButtonState(inputList, buttonElement);
+
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", function () {
       checkInputValidity(formElement, inputElement);
+      toggleButtonState(inputList, buttonElement);
     });
   });
 };

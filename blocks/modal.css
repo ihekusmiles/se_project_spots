@@ -179,6 +179,10 @@
   opacity: 0.8;
 }
 
+.modal__button_disabled {
+  opacity: 0.5;
+}
+
 @media screen and (max-width: 630px) {
   .modal__container {
     box-sizing: border-box;
