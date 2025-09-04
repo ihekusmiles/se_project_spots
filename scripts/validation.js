@@ -30,6 +30,14 @@ const checkInputValidity = (formElement, inputElement) => {
   }
 };
 
+// function that iterates through both inputs (name and description)
+// and for each one hides the error
+const resetValidation = (formElement, inputList) => {
+  inputList.forEach((input) => {
+    hideInputError(formElement, input);
+  });
+};
+
 // Passing inputList to this function. This will return
 // true if at least one field is invalid, and return false
 // if all of them are valid.

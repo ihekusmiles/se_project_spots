@@ -47,6 +47,7 @@ const descriptionInput = profileForm.querySelector("#profile-description");
 
 // New Post modal inputs
 const addCardForm = newPostModal.querySelector(".modal__form");
+const buttonElement = addCardForm.querySelector(".modal__save-btn"); // THIS IS THE SAVE BUTTON
 const postLinkInput = addCardForm.querySelector("#image-link");
 const postCaptionInput = addCardForm.querySelector("#image-caption");
 
@@ -80,6 +81,12 @@ function handleProfileFormSubmit(evt) {
   closeModal(profileModal);
 }
 
+// Function to disable "save" button after submitting a new card
+const disableBtn = (buttonElement) => {
+  buttonElement.classList.add(settings.inactiveButtonClass);
+  buttonElement.disabled = true;
+};
+
 // Function called when clicking the NEW POST 'save' submit button
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
@@ -91,6 +98,7 @@ function handleAddCardSubmit(evt) {
   cardContainer.prepend(newCard);
   closeModal(newPostModal);
   evt.target.reset(); // or addCardForm.reset()
+  disableBtn(buttonElement);
 }
 
 // Close image preview modal
@@ -131,6 +139,7 @@ editProfileBtn.addEventListener("click", function () {
   openModal(profileModal);
   nameInput.value = profileName.textContent;
   descriptionInput.value = profileDescription.textContent;
+  resetValidation(profileForm, [nameInput, descriptionInput]);
 });
 
 profileCloseBtn.addEventListener("click", function () {
