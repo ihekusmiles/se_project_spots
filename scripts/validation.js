@@ -1,10 +1,10 @@
 const settings = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__save-btn", // save button = submit button
+  submitButtonSelector: ".modal__save-btn",
   inactiveButtonClass: "modal__button_disabled",
-  inputErrorClass: "modal__input_type_error", // input field itself <input>-> eg. border color
-  errorClass: "modal__error_visible", // controls error visibility, applied to <span>
+  inputErrorClass: "modal__input_type_error", // Input field itself <input>-> eg. border color
+  errorClass: "modal__error_visible", // Controls error visibility, applied to <span>
 };
 
 const showInputError = (formElement, inputElement, errorMessage) => {
@@ -23,7 +23,6 @@ const hideInputError = (formElement, inputElement) => {
 
 const checkInputValidity = (formElement, inputElement) => {
   if (!inputElement.validity.valid) {
-    //if valid = false (not true) then make error message appear
     showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
     hideInputError(formElement, inputElement);
@@ -31,7 +30,7 @@ const checkInputValidity = (formElement, inputElement) => {
 };
 
 // function that iterates through both inputs (name and description)
-// and for each one hides the error
+// and for each one hides the error.
 const resetValidation = (formElement, inputList) => {
   inputList.forEach((input) => {
     hideInputError(formElement, input);
@@ -39,14 +38,14 @@ const resetValidation = (formElement, inputList) => {
 };
 
 // Passing inputList to this function. This will return
-// true if at least one field is invalid, and return false
-// if all of them are valid.
+// true if at least one field is invalid, and return false if all of them are valid.
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   });
 };
 
+// This will "turn off" the button depending if inputs are valid or invalid.
 const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(settings.inactiveButtonClass);
@@ -57,7 +56,7 @@ const toggleButtonState = (inputList, buttonElement) => {
   }
 };
 
-// For each input -> add event listener that calls checkInputValidity()
+// For each input -> add event listener that calls checkInputValidity().
 const setEventListeners = (formElement, config) => {
   const inputList = Array.from(
     formElement.querySelectorAll(config.inputSelector)
@@ -73,7 +72,7 @@ const setEventListeners = (formElement, config) => {
   });
 };
 
-// Get all forms -> loop through each form and set even listener
+// Get all forms -> loop through each form and set event listeners.
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formElement) => {
@@ -81,4 +80,4 @@ const enableValidation = (config) => {
   });
 };
 
-enableValidation(settings); // Object "settings" gets passed to config
+enableValidation(settings);
