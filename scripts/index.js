@@ -63,14 +63,26 @@ const closePreviewImage = previewImageModal.querySelector(
 const modalImage = previewImageModal.querySelector(".modal__image");
 const modalCaption = previewImageModal.querySelector(".modal__caption");
 
-// --- 2. FUNCTIONS ---
+// Const array for all modals
+const allModals = Array.from(document.querySelectorAll(".modal"));
 
+// --- 2. FUNCTIONS ---
 function openModal(modal) {
   modal.classList.add("modal_is-opened");
+  document.addEventListener("keydown", handleEscape);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_is-opened");
+  document.removeEventListener("keydown", handleEscape);
+}
+
+// Defining handler function for Escape button
+function handleEscape(evt) {
+  if (evt.key === "Escape") {
+    const openedModal = document.querySelector(".modal_is-opened");
+    closeModal(openedModal);
+  }
 }
 
 // Function called when clicking the PROFILE 'save' submit button
@@ -166,4 +178,13 @@ profileForm.addEventListener("submit", handleProfileFormSubmit);
 initialCards.forEach((card) => {
   const newCard = getCardElement(card);
   cardContainer.prepend(newCard);
+});
+
+// Feature to close modals when clicking outside the modal
+allModals.forEach((modal) => {
+  modal.addEventListener("click", function (evt) {
+    if (evt.target.classList.contains("modal_is-opened")) {
+      closeModal(modal);
+    }
+  });
 });

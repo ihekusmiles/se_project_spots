@@ -41,7 +41,7 @@ const resetValidation = (formElement, inputList) => {
 // Passing inputList to this function. This will return
 // true if at least one field is invalid, and return false
 // if all of them are valid.
-const hasInvalidInput = (inputList, formElement) => {
+const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   });
