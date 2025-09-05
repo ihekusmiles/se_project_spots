@@ -47,7 +47,7 @@ const descriptionInput = profileForm.querySelector("#profile-description");
 
 // New Post modal inputs
 const addCardForm = newPostModal.querySelector(".modal__form");
-const buttonElement = addCardForm.querySelector(".modal__save-btn"); // THIS IS THE SAVE BUTTON
+const buttonElement = addCardForm.querySelector(".modal__save-btn"); // THIS IS THE SAVE/SUBMIT BUTTON
 const postLinkInput = addCardForm.querySelector("#image-link");
 const postCaptionInput = addCardForm.querySelector("#image-caption");
 
@@ -151,7 +151,7 @@ editProfileBtn.addEventListener("click", function () {
   openModal(profileModal);
   nameInput.value = profileName.textContent;
   descriptionInput.value = profileDescription.textContent;
-  resetValidation(profileForm, [nameInput, descriptionInput]);
+  resetValidation(profileForm, [nameInput, descriptionInput], buttonElement);
 });
 
 profileCloseBtn.addEventListener("click", function () {

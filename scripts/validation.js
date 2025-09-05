@@ -31,10 +31,11 @@ const checkInputValidity = (formElement, inputElement) => {
 
 // function that iterates through both inputs (name and description)
 // and for each one hides the error.
-const resetValidation = (formElement, inputList) => {
+const resetValidation = (formElement, inputList, buttonElement) => {
   inputList.forEach((input) => {
     hideInputError(formElement, input);
   });
+  toggleButtonState(inputList, buttonElement);
 };
 
 // Passing inputList to this function. This will return

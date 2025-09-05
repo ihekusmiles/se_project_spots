@@ -100,7 +100,7 @@
 .modal__close-btn:hover {
   cursor: pointer;
   color: #212121;
-  opacity: 100%;
+  opacity: 1;
 }
 
 .modal__close-btn_type_preview {
