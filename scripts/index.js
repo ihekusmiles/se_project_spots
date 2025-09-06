@@ -66,6 +66,7 @@ const allModals = Array.from(document.querySelectorAll(".modal"));
 const closeButtons = document.querySelectorAll(".modal__close-btn");
 
 // --- 2. FUNCTIONS ---
+
 function openModal(modal) {
   modal.classList.add("modal_is-opened");
   document.addEventListener("keydown", handleEscape);
@@ -105,8 +106,8 @@ function handleAddCardSubmit(evt) {
     name: postCaptionInput.value,
     link: postLinkInput.value,
   };
-  const newCard = getCardElement(newInput);
-  cardContainer.prepend(newCard);
+  // Using universal function to render card
+  renderCard(newInput);
   closeModal(newPostModal);
   evt.target.reset(); // or addCardForm.reset()
   disableBtn(formSubmitButton, settings);
@@ -122,7 +123,7 @@ function getCardElement(data) {
   cardTitle.textContent = data.name;
   cardImage.src = data.link;
   cardImage.alt = data.name;
-  // Event listeners inside function:
+  // Event listeners inside function -> Like button, delete card, preview card:
   likeButton.addEventListener("click", function () {
     likeButton.classList.toggle("card__like-btn_active");
   });
@@ -135,9 +136,19 @@ function getCardElement(data) {
     modalImage.alt = data.name;
     openModal(previewImageModal);
   });
-
   return cardElement;
 }
+
+// Universal function for adding a card into the section using
+// any method eg. 'prepend', 'append' etc.
+function renderCard(card, method = "prepend") {
+  const cardElement = getCardElement(card);
+  cardContainer[method](cardElement);
+}
+// For each card render card using function renderCard()
+initialCards.forEach((card) => {
+  renderCard(card);
+});
 
 // --- 3. EVENT HANDLERS ---
 // Profile edit open and close handlers:
@@ -162,14 +173,6 @@ newPostBtn.addEventListener("click", function () {
 addCardForm.addEventListener("submit", handleAddCardSubmit);
 
 profileForm.addEventListener("submit", handleProfileFormSubmit);
-
-// Loops through each item in the array, creates a new card
-// and prepends it to cardContainer.
-// This code is only here to grab the "hard-coded" 6 cards!
-initialCards.forEach((card) => {
-  const newCard = getCardElement(card);
-  cardContainer.prepend(newCard);
-});
 
 // Feature to close modals when clicking outside the modal
 allModals.forEach((modal) => {
