@@ -29,25 +29,24 @@ const initialCards = [
 // Profile buttons and Profile Modal
 const editProfileBtn = document.querySelector(".profile__edit-btn");
 const profileModal = document.querySelector("#edit-profile-modal");
-const profileCloseBtn = profileModal.querySelector(".modal__close-btn");
 
 // New Post buttons and New Post Modal
 const newPostBtn = document.querySelector(".profile__new-post-btn");
 const newPostModal = document.querySelector("#new-post-modal");
-const newPostCloseBtn = newPostModal.querySelector(".modal__close-btn");
 
 // Profile name and description selectors
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
 // Profile modal inputs
-const profileForm = profileModal.querySelector(".modal__form");
+const profileForm = document.forms["profile-form"];
+
 const nameInput = profileForm.querySelector("#profile-name");
 const descriptionInput = profileForm.querySelector("#profile-description");
 
 // New Post modal inputs
-const addCardForm = newPostModal.querySelector(".modal__form");
-const buttonElement = addCardForm.querySelector(".modal__save-btn"); // THIS IS THE SAVE/SUBMIT BUTTON
+const addCardForm = document.forms["card-form"];
+const formSubmitButton = addCardForm.querySelector(".modal__save-btn");
 const postLinkInput = addCardForm.querySelector("#image-link");
 const postCaptionInput = addCardForm.querySelector("#image-caption");
 
@@ -57,14 +56,14 @@ const cardContainer = document.querySelector(".cards__list");
 
 // Select modal image preview
 const previewImageModal = document.querySelector("#preview-modal");
-const closePreviewImage = previewImageModal.querySelector(
-  ".modal__close-btn_type_preview"
-);
 const modalImage = previewImageModal.querySelector(".modal__image");
 const modalCaption = previewImageModal.querySelector(".modal__caption");
 
 // Const array for all modals
 const allModals = Array.from(document.querySelectorAll(".modal"));
+
+// Const for all close buttons
+const closeButtons = document.querySelectorAll(".modal__close-btn");
 
 // --- 2. FUNCTIONS ---
 function openModal(modal) {
@@ -85,6 +84,12 @@ function handleEscape(evt) {
   }
 }
 
+// Universal handler for any close button
+closeButtons.forEach((button) => {
+  const popup = button.closest(".modal");
+  button.addEventListener("click", () => closeModal(popup));
+});
+
 // Function called when clicking the PROFILE 'save' submit button
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -92,12 +97,6 @@ function handleProfileFormSubmit(evt) {
   profileDescription.textContent = descriptionInput.value;
   closeModal(profileModal);
 }
-
-// Function to disable "save" button after submitting a new card
-const disableBtn = (buttonElement) => {
-  buttonElement.classList.add(settings.inactiveButtonClass);
-  buttonElement.disabled = true;
-};
 
 // Function called when clicking the NEW POST 'save' submit button
 function handleAddCardSubmit(evt) {
@@ -110,13 +109,8 @@ function handleAddCardSubmit(evt) {
   cardContainer.prepend(newCard);
   closeModal(newPostModal);
   evt.target.reset(); // or addCardForm.reset()
-  disableBtn(buttonElement);
+  disableBtn(formSubmitButton, settings);
 }
-
-// Close image preview modal
-closePreviewImage.addEventListener("click", function () {
-  closeModal(previewImageModal);
-});
 
 // Function that creates a new card element, card name, card link and card alt
 function getCardElement(data) {
@@ -151,11 +145,13 @@ editProfileBtn.addEventListener("click", function () {
   openModal(profileModal);
   nameInput.value = profileName.textContent;
   descriptionInput.value = profileDescription.textContent;
-  resetValidation(profileForm, [nameInput, descriptionInput], buttonElement);
-});
-
-profileCloseBtn.addEventListener("click", function () {
-  closeModal(profileModal);
+  resetValidation(
+    profileForm,
+    [nameInput, descriptionInput],
+    formSubmitButton,
+    settings
+  );
+  disableBtn(formSubmitButton, settings);
 });
 
 // New Post open and close handlers:
@@ -163,18 +159,13 @@ newPostBtn.addEventListener("click", function () {
   openModal(newPostModal);
 });
 
-newPostCloseBtn.addEventListener("click", function () {
-  closeModal(newPostModal);
-});
-
-// Clicking "submit" save button will call the handleAddCardSubmit function
 addCardForm.addEventListener("submit", handleAddCardSubmit);
 
 profileForm.addEventListener("submit", handleProfileFormSubmit);
 
 // Loops through each item in the array, creates a new card
 // and prepends it to cardContainer.
-// This code is only here to grab the "hard-coded" 6 cards
+// This code is only here to grab the "hard-coded" 6 cards!
 initialCards.forEach((card) => {
   const newCard = getCardElement(card);
   cardContainer.prepend(newCard);
