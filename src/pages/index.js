@@ -7,45 +7,83 @@ import {
 
 import "./index.css";
 
+import Api from "../utils/Api.js";
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "6d7c669f-6037-4631-ac77-1be386021f0b",
+    "Content-Type": "application/json",
+  },
+});
+
+// cards is the returned json object from Api class
+
+// api
+//   .getInitialCards()
+//   .then((cards) => {})
+
+// then if .then above fails, then catch the error
+
+api
+  .getAppInfo()
+  //distructuring cards and additional values..
+  .then(([cards]) => {
+    console.log(cards);
+    cards.forEach((card) => {
+      renderCard(card);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+// Universal function for adding a card into the section using
+// any method eg. 'prepend', 'append' etc.
+function renderCard(card, method = "prepend") {
+  const cardElement = getCardElement(card);
+  cardContainer[method](cardElement);
+}
+
 // --- 1. CONSTANTS ---
-const initialCards = [
-  {
-    name: "Seceda mountains in Italy",
-    link: "https://images.unsplash.com/photo-1615729947596-a598e5de0ab3?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    name: "Rydal Water in United Kingdom",
-    link: "https://plus.unsplash.com/premium_photo-1719943510871-7831aeef9ab6?q=80&w=1928&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    name: "Bridge over a green waterfall",
-    link: "https://images.unsplash.com/photo-1433086966358-54859d0ed716?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    name: "Himeji Castle in Japan",
-    link: "https://images.unsplash.com/photo-1491884662610-dfcd28f30cfb?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    name: "Chichén Itzá in Mexico",
-    link: "https://images.unsplash.com/photo-1568402102990-bc541580b59f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    name: "The Empire State Building in New York City",
-    link: "https://images.unsplash.com/photo-1541336032412-2048a678540d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    name: "South Korean women in Hanbok",
-    link: "https://images.unsplash.com/photo-1602479185195-32f5cd203559?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    name: "Japanese temple in Japan",
-    link: "https://images.unsplash.com/photo-1574236170880-fbbca132d83d?q=80&w=626&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    name: "Independence Angel in Mexico",
-    link: "https://images.unsplash.com/photo-1677682579313-5bfee6dd05a5?q=80&w=1966&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-];
+// const initialCards = [
+//   {
+//     name: "Seceda mountains in Italy",
+//     link: "https://images.unsplash.com/photo-1615729947596-a598e5de0ab3?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//   },
+//   {
+//     name: "Rydal Water in United Kingdom",
+//     link: "https://plus.unsplash.com/premium_photo-1719943510871-7831aeef9ab6?q=80&w=1928&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//   },
+//   {
+//     name: "Bridge over a green waterfall",
+//     link: "https://images.unsplash.com/photo-1433086966358-54859d0ed716?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//   },
+//   {
+//     name: "Himeji Castle in Japan",
+//     link: "https://images.unsplash.com/photo-1491884662610-dfcd28f30cfb?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//   },
+//   {
+//     name: "Chichén Itzá in Mexico",
+//     link: "https://images.unsplash.com/photo-1568402102990-bc541580b59f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//   },
+//   {
+//     name: "The Empire State Building in New York City",
+//     link: "https://images.unsplash.com/photo-1541336032412-2048a678540d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//   },
+//   {
+//     name: "South Korean women in Hanbok",
+//     link: "https://images.unsplash.com/photo-1602479185195-32f5cd203559?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//   },
+//   {
+//     name: "Japanese temple in Japan",
+//     link: "https://images.unsplash.com/photo-1574236170880-fbbca132d83d?q=80&w=626&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//   },
+//   {
+//     name: "Independence Angel in Mexico",
+//     link: "https://images.unsplash.com/photo-1677682579313-5bfee6dd05a5?q=80&w=1966&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//   },
+// ];
 
 // Profile buttons and Profile Modal
 const editProfileBtn = document.querySelector(".profile__edit-btn");
@@ -159,17 +197,6 @@ function getCardElement(data) {
   });
   return cardElement;
 }
-
-// Universal function for adding a card into the section using
-// any method eg. 'prepend', 'append' etc.
-function renderCard(card, method = "prepend") {
-  const cardElement = getCardElement(card);
-  cardContainer[method](cardElement);
-}
-// For each card render card using function renderCard()
-initialCards.forEach((card) => {
-  renderCard(card);
-});
 
 // --- 3. EVENT HANDLERS ---
 // Profile edit open and close handlers:
