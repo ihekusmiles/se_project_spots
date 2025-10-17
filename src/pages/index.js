@@ -1,3 +1,12 @@
+import {
+  settings,
+  enableValidation,
+  disableBtn,
+  resetValidation,
+} from "../scripts/validation.js";
+
+import "./index.css";
+
 // --- 1. CONSTANTS ---
 const initialCards = [
   {
@@ -194,3 +203,5 @@ allModals.forEach((modal) => {
     }
   });
 });
+
+enableValidation(settings);

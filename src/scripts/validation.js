@@ -91,4 +91,4 @@ const enableValidation = (config) => {
   });
 };
 
-enableValidation(settings);
+export { settings, enableValidation, disableBtn, resetValidation };
