@@ -9,6 +9,7 @@ import "./index.css";
 
 import Api from "../utils/Api.js";
 
+// Instantiating an new Api
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
@@ -17,22 +18,19 @@ const api = new Api({
   },
 });
 
-// cards is the returned json object from Api class
-
-// api
-//   .getInitialCards()
-//   .then((cards) => {})
-
-// then if .then above fails, then catch the error
-
+// Callin api methods to fetch data
 api
   .getAppInfo()
-  //distructuring cards and additional values..
-  .then(([cards]) => {
-    console.log(cards);
+  //distructuring cards, userInfo, ...etc into an array
+  .then(([cards, userInfo]) => {
+    // console.log(cards);
     cards.forEach((card) => {
       renderCard(card);
     });
+    console.log(userInfo);
+    profileName.textContent = userInfo.name;
+    profileDescription.textContent = userInfo.about;
+    profileAvatar.src = userInfo.avatar;
   })
   .catch((err) => {
     console.log(err);
@@ -84,6 +82,9 @@ function renderCard(card, method = "prepend") {
 //     link: "https://images.unsplash.com/photo-1677682579313-5bfee6dd05a5?q=80&w=1966&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 //   },
 // ];
+
+// Profile avatar
+const profileAvatar = document.querySelector(".profile__avatar");
 
 // Profile buttons and Profile Modal
 const editProfileBtn = document.querySelector(".profile__edit-btn");
@@ -153,9 +154,15 @@ closeButtons.forEach((button) => {
 // Function called when clicking the PROFILE 'save' submit button
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileDescription.textContent = descriptionInput.value;
-  closeModal(profileModal);
+
+  api
+    .editUserInfo({ name: nameInput.value, about: descriptionInput.value })
+    .then((data) => {
+      profileName.textContent = data.name;
+      profileDescription.textContent = data.about;
+      closeModal(profileModal);
+    })
+    .catch(console.error);
 }
 
 // Function called when clicking the NEW POST 'save' submit button
