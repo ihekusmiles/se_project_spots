@@ -125,6 +125,19 @@ const allModals = Array.from(document.querySelectorAll(".modal"));
 // Const for all close buttons
 const closeButtons = document.querySelectorAll(".modal__close-btn");
 
+// Avatar form elements
+const avatarModal = document.querySelector("#avatar-modal");
+const avatarForm = avatarModal.querySelector(".modal__form");
+const avatarSubmitBtn = avatarModal.querySelector(".modal__save-btn");
+// const avatarModalCloseBtn = avatarModal.querySelector(".modal__close-btn");
+const avatarInput = avatarModal.querySelector("#profile-avatar-input");
+
+const avatarModalBtn = document.querySelector(".profile__avatar-btn");
+
+avatarModalBtn.addEventListener("click", () => {
+  openModal(avatarModal);
+});
+
 // --- 2. FUNCTIONS ---
 
 function openModal(modal) {
@@ -179,6 +192,19 @@ function handleAddCardSubmit(evt) {
   disableBtn(formSubmitButton, settings);
 }
 
+// Function to handle Avatar submit
+function handleAvatarSubmit(evt) {
+  evt.preventDefault();
+  console.log(avatarInput.value);
+
+  api
+    .editAvatarInfo({ avatar: avatarInput.value })
+    .then((data) => {
+      profileAvatar.src = data.avatar;
+    })
+    .catch(console.error);
+}
+
 // Function that creates a new card element, card name, card link and card alt
 function getCardElement(data) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
@@ -226,8 +252,8 @@ newPostBtn.addEventListener("click", function () {
 });
 
 addCardForm.addEventListener("submit", handleAddCardSubmit);
-
 profileForm.addEventListener("submit", handleProfileFormSubmit);
+avatarForm.addEventListener("submit", handleAvatarSubmit);
 
 // Feature to close modals when clicking outside the modal
 allModals.forEach((modal) => {
