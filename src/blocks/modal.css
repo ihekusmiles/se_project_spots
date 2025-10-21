@@ -36,6 +36,12 @@
   box-sizing: border-box; /* To include padding in its width */
 }
 
+.modal__container--delete {
+  position: relative;
+  max-width: 630px;
+  padding: 0px;
+}
+
 .modal__container_type_preview {
   position: relative;
   padding: 0;
@@ -79,9 +85,19 @@
 .modal__edit-profile-text {
   color: #212121;
   margin: 0;
+  text-align: center;
   font-size: 32px;
   font-weight: 500;
   line-height: 100%;
+}
+
+.modal__edit-modal-text {
+  color: #212121;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 100%;
+  margin: 32px, auto;
 }
 
 .modal__close-btn {
@@ -109,6 +125,18 @@
   opacity: 1;
   top: 0px;
   right: -52.5px;
+}
+
+.modal__close-btn_type_delete--confirmation {
+  position: absolute;
+  background-image: url(../images/whiteCloseButton.svg);
+  opacity: 1;
+  top: 0px;
+  left: 642px;
+}
+
+.modal__close-btn_type_delete--confirmation:hover {
+  opacity: 0.4;
 }
 
 .modal__close-btn_type_preview:hover {
@@ -183,6 +211,38 @@
   opacity: 0.5;
 }
 
+/* Styles for delete-image confirmation modal */
+.modal__delete-btn {
+  padding: 18px 52px;
+  background-color: #ff6565;
+  color: #212121;
+}
+
+.modal__delete-btn:hover {
+  background-color: #ff3333;
+  opacity: 1;
+}
+
+.modal__cancel-btn {
+  padding: 18px 49px;
+  color: #212121;
+  background-color: white;
+  border: 1px solid #212121;
+}
+
+.modal__cancel-btn:hover {
+  color: #fff;
+  background-color: #212121;
+  opacity: 1;
+}
+
+.modal__delete-form {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
 @media screen and (max-width: 630px) {
   .modal__container {
     box-sizing: border-box;
@@ -204,12 +264,13 @@
   }
 
   .modal__row {
-    max-width: 276px;
+    max-width: 376px;
     margin-bottom: 24px;
   }
 
   .modal__edit-profile-text {
-    font-size: 20px;
+    font-size: 24px;
+    text-align: center;
   }
 
   .modal__input {

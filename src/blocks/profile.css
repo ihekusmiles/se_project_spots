@@ -145,7 +145,7 @@ display images with any proportions */
   }
 
   .profile__avatar-btn {
-    position: relative;
+    position: absolute;
     visibility: visible;
     top: 52px;
     left: 52px;
