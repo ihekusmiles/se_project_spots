@@ -18,16 +18,14 @@ const api = new Api({
   },
 });
 
-// Callin api methods to fetch data
+// Calling api methods to fetch data
 api
   .getAppInfo()
   //distructuring cards, userInfo, ...etc into an array
   .then(([cards, userInfo]) => {
-    // console.log(cards);
     cards.forEach((card) => {
       renderCard(card);
     });
-    console.log(userInfo);
     profileName.textContent = userInfo.name;
     profileDescription.textContent = userInfo.about;
     profileAvatar.src = userInfo.avatar;
@@ -38,50 +36,10 @@ api
 
 // Universal function for adding a card into the section using
 // any method eg. 'prepend', 'append' etc.
-function renderCard(card, method = "prepend") {
+function renderCard(card, method = "append") {
   const cardElement = getCardElement(card);
   cardContainer[method](cardElement);
 }
-
-// --- 1. CONSTANTS ---
-// const initialCards = [
-//   {
-//     name: "Seceda mountains in Italy",
-//     link: "https://images.unsplash.com/photo-1615729947596-a598e5de0ab3?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//   },
-//   {
-//     name: "Rydal Water in United Kingdom",
-//     link: "https://plus.unsplash.com/premium_photo-1719943510871-7831aeef9ab6?q=80&w=1928&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//   },
-//   {
-//     name: "Bridge over a green waterfall",
-//     link: "https://images.unsplash.com/photo-1433086966358-54859d0ed716?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//   },
-//   {
-//     name: "Himeji Castle in Japan",
-//     link: "https://images.unsplash.com/photo-1491884662610-dfcd28f30cfb?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//   },
-//   {
-//     name: "Chichén Itzá in Mexico",
-//     link: "https://images.unsplash.com/photo-1568402102990-bc541580b59f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//   },
-//   {
-//     name: "The Empire State Building in New York City",
-//     link: "https://images.unsplash.com/photo-1541336032412-2048a678540d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//   },
-//   {
-//     name: "South Korean women in Hanbok",
-//     link: "https://images.unsplash.com/photo-1602479185195-32f5cd203559?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//   },
-//   {
-//     name: "Japanese temple in Japan",
-//     link: "https://images.unsplash.com/photo-1574236170880-fbbca132d83d?q=80&w=626&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//   },
-//   {
-//     name: "Independence Angel in Mexico",
-//     link: "https://images.unsplash.com/photo-1677682579313-5bfee6dd05a5?q=80&w=1966&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//   },
-// ];
 
 // Profile avatar
 const profileAvatar = document.querySelector(".profile__avatar");
@@ -135,8 +93,10 @@ const avatarInput = avatarModal.querySelector("#profile-avatar-input");
 const avatarModalBtn = document.querySelector(".profile__avatar-btn");
 
 // Delete form elements
-
 const deleteModal = document.querySelector("#delete-modal");
+const deleteForm = deleteModal.querySelector(".modal__delete-form");
+
+let selectedCard, selectedCardId;
 
 avatarModalBtn.addEventListener("click", () => {
   openModal(avatarModal);
@@ -185,28 +145,47 @@ function handleProfileFormSubmit(evt) {
 // Function called when clicking the NEW POST 'save' submit button
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
-  const newInput = {
-    name: postCaptionInput.value,
-    link: postLinkInput.value,
-  };
-  // Using universal function to render card
-  renderCard(newInput);
-  closeModal(newPostModal);
-  evt.target.reset(); // or addCardForm.reset()
-  disableBtn(formSubmitButton, settings);
+
+  api
+    .postNewImage({ name: postCaptionInput.value, link: postLinkInput.value })
+    .then((data) => {
+      renderCard(data);
+    });
+
+  evt.target.reset(); // Clears form inputs after submissions
+  disableBtn(formSubmitButton, settings); //disables submit botton
+  closeModal(newPostModal); // closes modal after card is added
 }
 
 // Function to handle Avatar submit
 function handleAvatarSubmit(evt) {
   evt.preventDefault();
-  console.log(avatarInput.value);
-
+  // console.log(avatarInput.value);
   api
     .editAvatarInfo({ avatar: avatarInput.value })
     .then((data) => {
       profileAvatar.src = data.avatar;
     })
     .catch(console.error);
+  closeModal(avatarModal);
+}
+
+// Handle delete submit function
+function handleDeleteSubmit(evt) {
+  evt.preventDefault();
+
+  api.deleteCard({ id: selectedCardId }).then(() => {
+    selectedCard.remove();
+    closeModal(deleteModal);
+  });
+}
+
+// Delete card function
+function handleDeleteCard(cardElement, cardId) {
+  selectedCard = cardElement;
+  selectedCardId = cardId;
+  // open the delete confirmation modal here
+  openModal(deleteModal);
 }
 
 // Function that creates a new card element, card name, card link and card alt
@@ -219,14 +198,16 @@ function getCardElement(data) {
   cardTitle.textContent = data.name;
   cardImage.src = data.link;
   cardImage.alt = data.name;
+
   // Event listeners inside function -> Like button, delete card, preview card:
   likeButton.addEventListener("click", function () {
     likeButton.classList.toggle("card__like-btn_active");
   });
-  deleteCardBtn.addEventListener("click", function () {
-    openModal(deleteModal);
-    // cardElement.remove();
-  });
+
+  deleteCardBtn.addEventListener("click", (evt) =>
+    handleDeleteCard(cardElement, data._id)
+  );
+
   cardImage.addEventListener("click", function () {
     modalCaption.textContent = data.name;
     modalImage.src = data.link;
@@ -259,6 +240,7 @@ newPostBtn.addEventListener("click", function () {
 addCardForm.addEventListener("submit", handleAddCardSubmit);
 profileForm.addEventListener("submit", handleProfileFormSubmit);
 avatarForm.addEventListener("submit", handleAvatarSubmit);
+deleteForm.addEventListener("submit", handleDeleteSubmit);
 
 // Feature to close modals when clicking outside the modal
 allModals.forEach((modal) => {
