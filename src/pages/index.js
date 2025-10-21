@@ -134,6 +134,10 @@ const avatarInput = avatarModal.querySelector("#profile-avatar-input");
 
 const avatarModalBtn = document.querySelector(".profile__avatar-btn");
 
+// Delete form elements
+
+const deleteModal = document.querySelector("#delete-modal");
+
 avatarModalBtn.addEventListener("click", () => {
   openModal(avatarModal);
 });
@@ -220,7 +224,8 @@ function getCardElement(data) {
     likeButton.classList.toggle("card__like-btn_active");
   });
   deleteCardBtn.addEventListener("click", function () {
-    cardElement.remove();
+    openModal(deleteModal);
+    // cardElement.remove();
   });
   cardImage.addEventListener("click", function () {
     modalCaption.textContent = data.name;

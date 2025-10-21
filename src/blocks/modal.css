@@ -273,6 +273,25 @@
     text-align: center;
   }
 
+  .modal__edit-modal-text {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .modal__container--delete {
+    position: relative;
+    padding: 12px;
+  }
+  /* TODAYS CODE */
+  .modal__delete-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 0px;
+  }
   .modal__input {
     margin-bottom: 24px;
   }
@@ -287,6 +306,27 @@
     width: 100%;
   }
 
+  .modal__close-btn_type_delete--confirmation {
+    position: absolute;
+    background-image: url(../images/whiteCloseButton.svg);
+    opacity: 1;
+    top: -56px;
+    left: 254px;
+  }
+
+  .modal__delete-btn {
+    margin-top: 20px;
+    background-color: #ff6565;
+    color: #212121;
+    max-width: 156px;
+  }
+
+  .modal__cancel-btn {
+    color: #212121;
+    background-color: white;
+    border: 1px solid #212121;
+    max-width: 156px;
+  }
   .modal__form {
     max-width: 276px;
   }
