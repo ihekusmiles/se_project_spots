@@ -149,6 +149,7 @@ function handleAddCardSubmit(evt) {
   api
     .postNewImage({ name: postCaptionInput.value, link: postLinkInput.value })
     .then((data) => {
+      console.log(data);
       renderCard(data);
     });
 
@@ -174,10 +175,13 @@ function handleAvatarSubmit(evt) {
 function handleDeleteSubmit(evt) {
   evt.preventDefault();
 
-  api.deleteCard({ id: selectedCardId }).then(() => {
-    selectedCard.remove();
-    closeModal(deleteModal);
-  });
+  api
+    .deleteCard({ id: selectedCardId })
+    .then(() => {
+      selectedCard.remove();
+      closeModal(deleteModal);
+    })
+    .catch(console.error);
 }
 
 // Delete card function
@@ -186,6 +190,20 @@ function handleDeleteCard(cardElement, cardId) {
   selectedCardId = cardId;
   // open the delete confirmation modal here
   openModal(deleteModal);
+}
+// Like/unlike function
+function handleLike(evt, id) {
+  const isLiked = evt.target.classList.contains("card__like-btn_active");
+  api
+    .changeLikeStatus(id, isLiked)
+    .then(() => {
+      if (isLiked) {
+        evt.target.classList.remove("card__like-btn_active");
+      } else {
+        evt.target.classList.add("card__like-btn_active");
+      }
+    })
+    .catch(console.error);
 }
 
 // Function that creates a new card element, card name, card link and card alt
@@ -198,13 +216,15 @@ function getCardElement(data) {
   cardTitle.textContent = data.name;
   cardImage.src = data.link;
   cardImage.alt = data.name;
+  // Check if data.isLiked is true, then add class if so
+  if (data.isLiked) {
+    likeButton.classList.add("card__like-btn_active");
+  }
 
   // Event listeners inside function -> Like button, delete card, preview card:
-  likeButton.addEventListener("click", function () {
-    likeButton.classList.toggle("card__like-btn_active");
-  });
+  likeButton.addEventListener("click", (evt) => handleLike(evt, data._id));
 
-  deleteCardBtn.addEventListener("click", (evt) =>
+  deleteCardBtn.addEventListener("click", () =>
     handleDeleteCard(cardElement, data._id)
   );
 
