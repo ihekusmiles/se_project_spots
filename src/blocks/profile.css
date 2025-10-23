@@ -63,7 +63,7 @@ display images with any proportions */
 .profile__name {
   margin: 0;
   font-weight: 500;
-  line-height: 1;
+  line-height: 1.3;
   display: -webkit-box; /* Required for -webkit-line-clamp */
   -webkit-line-clamp: 3; /* Limits the text to 3 lines */
   -webkit-box-orient: vertical; /* Required for -webkit-line-clamp */
@@ -75,7 +75,7 @@ display images with any proportions */
   padding-top: 12px;
   opacity: 70%;
   font-weight: 500;
-  line-height: 1;
+  line-height: 1.2;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -145,10 +145,11 @@ display images with any proportions */
   }
 
   .profile__avatar-btn {
+    justify-content: flex-end;
     position: absolute;
     visibility: visible;
-    top: 52px;
-    left: 52px;
+    bottom: 4.66px;
+    right: 4.66px;
   }
 
   .profile__avatar-btn::after {
@@ -157,9 +158,14 @@ display images with any proportions */
   }
 
   .profile__pencil-icon {
+    background-color: rgba(33, 33, 33, 0.6);
+
     width: 23.34px;
     height: 23.34px;
     margin: 0;
+    border-radius: 6px;
+    gap: 8px;
+    object-fit: none;
   }
   .profile__data {
     width: 100%;

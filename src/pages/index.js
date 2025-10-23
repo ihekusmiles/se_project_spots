@@ -9,6 +9,8 @@ import "./index.css";
 
 import Api from "../utils/Api.js";
 
+import { setButtonText } from "../utils/helpers.js";
+
 // Instantiating an new Api
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
@@ -96,6 +98,10 @@ const avatarModalBtn = document.querySelector(".profile__avatar-btn");
 const deleteModal = document.querySelector("#delete-modal");
 const deleteForm = deleteModal.querySelector(".modal__delete-form");
 
+// Cancel button
+
+const cancelButton = document.querySelector(".modal__cancel-btn");
+
 let selectedCard, selectedCardId;
 
 avatarModalBtn.addEventListener("click", () => {
@@ -131,7 +137,8 @@ closeButtons.forEach((button) => {
 // Function called when clicking the PROFILE 'save' submit button
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-
+  const submitBtn = evt.submitter;
+  setButtonText(submitBtn, true);
   api
     .editUserInfo({ name: nameInput.value, about: descriptionInput.value })
     .then((data) => {
@@ -139,18 +146,28 @@ function handleProfileFormSubmit(evt) {
       profileDescription.textContent = data.about;
       closeModal(profileModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(submitBtn, false);
+    });
 }
 
 // Function called when clicking the NEW POST 'save' submit button
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
 
+  const submitBtn = evt.submitter;
+  setButtonText(submitBtn, true);
+
   api
     .postNewImage({ name: postCaptionInput.value, link: postLinkInput.value })
     .then((data) => {
       console.log(data);
       renderCard(data);
+    })
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(submitBtn, false);
     });
 
   evt.target.reset(); // Clears form inputs after submissions
@@ -161,27 +178,37 @@ function handleAddCardSubmit(evt) {
 // Function to handle Avatar submit
 function handleAvatarSubmit(evt) {
   evt.preventDefault();
-  // console.log(avatarInput.value);
+
+  const submitBtn = evt.submitter;
+  setButtonText(submitBtn, true);
+
   api
     .editAvatarInfo({ avatar: avatarInput.value })
     .then((data) => {
       profileAvatar.src = data.avatar;
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(submitBtn, false);
+    });
   closeModal(avatarModal);
 }
 
 // Handle delete submit function
 function handleDeleteSubmit(evt) {
   evt.preventDefault();
-
+  const deleteBtn = evt.submitter;
+  setButtonText(deleteBtn, true, "Delete", "Deleting...");
   api
     .deleteCard({ id: selectedCardId })
     .then(() => {
       selectedCard.remove();
       closeModal(deleteModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(deleteBtn, false, "Delete", "Deleting...");
+    });
 }
 
 // Delete card function
@@ -255,6 +282,11 @@ editProfileBtn.addEventListener("click", function () {
 // New Post open and close handlers:
 newPostBtn.addEventListener("click", function () {
   openModal(newPostModal);
+});
+
+// Cancel button handler when deleting an image
+cancelButton.addEventListener("click", function () {
+  closeModal(deleteModal);
 });
 
 addCardForm.addEventListener("submit", handleAddCardSubmit);

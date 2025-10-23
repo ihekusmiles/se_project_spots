@@ -126,16 +126,14 @@
                 alt="Pencil icon"
               />
             </button>
-            <img
-              class="profile__avatar"
-              src="<%=require('./images/avatar.jpg')%>"
-              alt="User's profile avatar"
-            />
+            <img class="profile__avatar" src="" alt="User's profile avatar" />
           </div>
-
+          <!-- DELETED HARD-CODED DATA -->
+          <!-- <%=require('./images/avatar.jpg')%> -->
+          <!-- Bessie Coleman, Civil Aviator -->
           <div class="profile__data">
-            <h1 class="profile__name">Bessie Coleman</h1>
-            <p class="profile__description">Civil Aviator</p>
+            <h1 class="profile__name"></h1>
+            <p class="profile__description"></p>
             <button class="profile__edit-btn" type="button">
               <img
                 src="<%=require('./images/edit_icon.svg')%>"
@@ -186,7 +184,7 @@
                 >Profile Picture</label
               >
               <input
-                type="text"
+                type="url"
                 minlength="2"
                 class="modal__input"
                 id="profile-avatar-input"
