@@ -293,11 +293,15 @@
     margin-bottom: 0px;
   }
   .modal__input {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
 
   .modal__input::placeholder {
     font-size: 16px;
+  }
+
+  .modal__error {
+    margin: 8px 0 0;
   }
 
   .modal__save-btn {
