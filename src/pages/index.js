@@ -38,7 +38,7 @@ api
 
 // Universal function for adding a card into the section using
 // any method eg. 'prepend', 'append' etc.
-function renderCard(card, method = "append") {
+function renderCard(card, method = "prepend") {
   const cardElement = getCardElement(card);
   cardContainer[method](cardElement);
 }
@@ -162,17 +162,15 @@ function handleAddCardSubmit(evt) {
   api
     .postNewImage({ name: postCaptionInput.value, link: postLinkInput.value })
     .then((data) => {
-      console.log(data);
       renderCard(data);
+      evt.target.reset(); // Clears form inputs after submissions
+      disableBtn(formSubmitButton, settings); //disables submit botton
+      closeModal(newPostModal); // closes modal after card is added
     })
     .catch(console.error)
     .finally(() => {
       setButtonText(submitBtn, false);
     });
-
-  evt.target.reset(); // Clears form inputs after submissions
-  disableBtn(formSubmitButton, settings); //disables submit botton
-  closeModal(newPostModal); // closes modal after card is added
 }
 
 // Function to handle Avatar submit
@@ -186,12 +184,12 @@ function handleAvatarSubmit(evt) {
     .editAvatarInfo({ avatar: avatarInput.value })
     .then((data) => {
       profileAvatar.src = data.avatar;
+      closeModal(avatarModal);
     })
     .catch(console.error)
     .finally(() => {
       setButtonText(submitBtn, false);
     });
-  closeModal(avatarModal);
 }
 
 // Handle delete submit function
