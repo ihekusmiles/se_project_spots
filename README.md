@@ -55,15 +55,15 @@ In order to make the layout, Figma was used to extract all the necessary design 
 
 The following screenshot shows what the page needs to look like at 1440px. All three columns must be displayed.
 
-![Page at 1440px](./images/1440px.png)
+![Page at 1440px](./src/images/final-spots-full-view.JPG)
 
 On a tablet between approximately 880px and 1320px there are two cards in each row like shown in the following screenshot:
 
-![Page at 911px](./images/911px.png)
+![Page at 911px](./src/images/final-spots-mid-view.JPG)
 
 At the smallest viewport, between 320px and 630px, the layout changes to a single card per row. Other elements such as font sizes/padding and margin distances as well as the profile button and profile avatar change in size accordingly:
 
-![Page at 435px](./images/435px.png)
+![Page at 435px](./src/images/final-spots-min-view.JPG)
 
 **Javascript Integration**
 
@@ -71,4 +71,4 @@ Javascript is used in order to select elements and manipulate page behavior usin
 
 ## Plan on improving project
 
-- Add in the button functionality for the like button, edit button, and new post button.
+- Users should be able to edit the text description for each post. This is a functionality that could potentially be implemented into the project.

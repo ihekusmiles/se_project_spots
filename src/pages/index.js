@@ -11,7 +11,9 @@ import Api from "../utils/Api.js";
 
 import { setButtonText } from "../utils/helpers.js";
 
-// Instantiating an new Api
+// --- 1. CONSTANTS ---
+
+// Instantiating an new api with parameters
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
@@ -20,7 +22,66 @@ const api = new Api({
   },
 });
 
-// Calling api methods to fetch data
+// Select cards-template and cards__list card container
+const cardTemplate = document.querySelector("#cards-template").content;
+const cardContainer = document.querySelector(".cards__list");
+
+// Profile Avatar
+const profileAvatar = document.querySelector(".profile__avatar");
+
+// Avatar form elements
+const avatarModal = document.querySelector("#avatar-modal");
+const avatarForm = avatarModal.querySelector(".modal__form");
+const avatarInput = avatarModal.querySelector("#profile-avatar-input");
+const avatarModalBtn = document.querySelector(".profile__avatar-btn");
+
+// Profile buttons and Profile Modal
+const profileModal = document.querySelector("#edit-profile-modal");
+const editProfileBtn = document.querySelector(".profile__edit-btn");
+
+// Profile name and description selectors
+const profileName = document.querySelector(".profile__name");
+const profileDescription = document.querySelector(".profile__description");
+
+// Profile modal form inputs
+const profileForm = document.forms["profile-form"];
+const nameInput = profileForm.querySelector("#profile-name");
+const descriptionInput = profileForm.querySelector("#profile-description");
+
+// New Post buttons and New Post Modal
+const newPostModal = document.querySelector("#new-post-modal");
+const newPostBtn = document.querySelector(".profile__new-post-btn");
+
+// New Post modal form inputs
+const addCardForm = document.forms["card-form"];
+const formSubmitButton = addCardForm.querySelector(".modal__save-btn");
+const postLinkInput = addCardForm.querySelector("#image-link");
+const postCaptionInput = addCardForm.querySelector("#image-caption");
+
+// Select modal image preview
+const previewImageModal = document.querySelector("#preview-modal");
+const modalImage = previewImageModal.querySelector(".modal__image");
+const modalCaption = previewImageModal.querySelector(".modal__caption");
+
+// Const array for all modals
+const allModals = Array.from(document.querySelectorAll(".modal"));
+
+// Const for all close buttons
+const closeButtons = document.querySelectorAll(".modal__close-btn");
+
+// Delete form elements
+const deleteModal = document.querySelector("#delete-modal");
+const deleteForm = deleteModal.querySelector(".modal__delete-form");
+
+// Cancel button when user deletes a post
+const cancelButton = document.querySelector(".modal__cancel-btn");
+
+// Let variables for 'selected card' and 'selected card ID'
+let selectedCard, selectedCardId;
+
+// --- 2. FUNCTIONS ---
+
+// Calling getAppInfo() method to get new card and user info
 api
   .getAppInfo()
   //distructuring cards, userInfo, ...etc into an array
@@ -42,74 +103,6 @@ function renderCard(card, method = "prepend") {
   const cardElement = getCardElement(card);
   cardContainer[method](cardElement);
 }
-
-// Profile avatar
-const profileAvatar = document.querySelector(".profile__avatar");
-
-// Profile buttons and Profile Modal
-const editProfileBtn = document.querySelector(".profile__edit-btn");
-const profileModal = document.querySelector("#edit-profile-modal");
-
-// New Post buttons and New Post Modal
-const newPostBtn = document.querySelector(".profile__new-post-btn");
-const newPostModal = document.querySelector("#new-post-modal");
-
-// Profile name and description selectors
-const profileName = document.querySelector(".profile__name");
-const profileDescription = document.querySelector(".profile__description");
-
-// Profile modal inputs
-const profileForm = document.forms["profile-form"];
-
-const nameInput = profileForm.querySelector("#profile-name");
-const descriptionInput = profileForm.querySelector("#profile-description");
-
-// New Post modal inputs
-const addCardForm = document.forms["card-form"];
-const formSubmitButton = addCardForm.querySelector(".modal__save-btn");
-const postLinkInput = addCardForm.querySelector("#image-link");
-const postCaptionInput = addCardForm.querySelector("#image-caption");
-
-// Select cards-template and cards__list card container
-const cardTemplate = document.querySelector("#cards-template").content;
-const cardContainer = document.querySelector(".cards__list");
-
-// Select modal image preview
-const previewImageModal = document.querySelector("#preview-modal");
-const modalImage = previewImageModal.querySelector(".modal__image");
-const modalCaption = previewImageModal.querySelector(".modal__caption");
-
-// Const array for all modals
-const allModals = Array.from(document.querySelectorAll(".modal"));
-
-// Const for all close buttons
-const closeButtons = document.querySelectorAll(".modal__close-btn");
-
-// Avatar form elements
-const avatarModal = document.querySelector("#avatar-modal");
-const avatarForm = avatarModal.querySelector(".modal__form");
-const avatarSubmitBtn = avatarModal.querySelector(".modal__save-btn");
-// const avatarModalCloseBtn = avatarModal.querySelector(".modal__close-btn");
-const avatarInput = avatarModal.querySelector("#profile-avatar-input");
-
-const avatarModalBtn = document.querySelector(".profile__avatar-btn");
-
-// Delete form elements
-const deleteModal = document.querySelector("#delete-modal");
-const deleteForm = deleteModal.querySelector(".modal__delete-form");
-
-// Cancel button
-
-const cancelButton = document.querySelector(".modal__cancel-btn");
-
-let selectedCard, selectedCardId;
-
-avatarModalBtn.addEventListener("click", () => {
-  openModal(avatarModal);
-});
-
-// --- 2. FUNCTIONS ---
-
 function openModal(modal) {
   modal.classList.add("modal_is-opened");
   document.addEventListener("keydown", handleEscape);
@@ -127,12 +120,6 @@ function handleEscape(evt) {
     closeModal(openedModal);
   }
 }
-
-// Universal handler for any close button
-closeButtons.forEach((button) => {
-  const popup = button.closest(".modal");
-  button.addEventListener("click", () => closeModal(popup));
-});
 
 // Function called when clicking the PROFILE 'save' submit button
 function handleProfileFormSubmit(evt) {
@@ -246,7 +233,7 @@ function getCardElement(data) {
     likeButton.classList.add("card__like-btn_active");
   }
 
-  // Event listeners inside function -> Like button, delete card, preview card:
+  // Event listeners INSIDE getCardElement() -> Like button, delete card, preview card:
   likeButton.addEventListener("click", (evt) => handleLike(evt, data._id));
 
   deleteCardBtn.addEventListener("click", () =>
@@ -261,6 +248,12 @@ function getCardElement(data) {
   });
   return cardElement;
 }
+
+// Universal handler for any close button
+closeButtons.forEach((button) => {
+  const popup = button.closest(".modal");
+  button.addEventListener("click", () => closeModal(popup));
+});
 
 // --- 3. EVENT HANDLERS ---
 // Profile edit open and close handlers:
@@ -277,7 +270,7 @@ editProfileBtn.addEventListener("click", function () {
   disableBtn(formSubmitButton, settings);
 });
 
-// New Post open and close handlers:
+// New Post open handler:
 newPostBtn.addEventListener("click", function () {
   openModal(newPostModal);
 });
@@ -287,10 +280,10 @@ cancelButton.addEventListener("click", function () {
   closeModal(deleteModal);
 });
 
-addCardForm.addEventListener("submit", handleAddCardSubmit);
-profileForm.addEventListener("submit", handleProfileFormSubmit);
-avatarForm.addEventListener("submit", handleAvatarSubmit);
-deleteForm.addEventListener("submit", handleDeleteSubmit);
+// Edit avatar modal handler
+avatarModalBtn.addEventListener("click", () => {
+  openModal(avatarModal);
+});
 
 // Feature to close modals when clicking outside the modal
 allModals.forEach((modal) => {
@@ -301,4 +294,10 @@ allModals.forEach((modal) => {
   });
 });
 
+// Submit event handlers for forms
+addCardForm.addEventListener("submit", handleAddCardSubmit);
+profileForm.addEventListener("submit", handleProfileFormSubmit);
+avatarForm.addEventListener("submit", handleAvatarSubmit);
+deleteForm.addEventListener("submit", handleDeleteSubmit);
+// Form validation call
 enableValidation(settings);
