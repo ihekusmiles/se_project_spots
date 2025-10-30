@@ -10,8 +10,7 @@
     />
     <meta name="keywords" content="social media, photos, upload photos" />
     <title>Spots</title>
-    <link rel="stylesheet" href="./pages/index.css" />
-    <link rel="icon" href="./favicon.ico" />
+    <link rel="icon" href="favicon.ico" />
   </head>
   <body>
     <div class="page">
@@ -110,26 +109,42 @@
       </div>
 
       <header class="header">
-        <img class="header__logo" src="./images/logo.svg" alt="Spots logo" />
+        <img
+          class="header__logo"
+          src="<%=require('./images/logo.svg')%>"
+          alt="Spots logo"
+        />
       </header>
       <main class="content">
         <section class="profile page__alignment">
-          <img
-            class="profile__avatar"
-            src="./images/avatar.jpg"
-            alt="User's profile avatar"
-          />
+          <div class="profile__avatar-container">
+            <!-- NEW CODE -->
+            <button class="profile__avatar-btn">
+              <img
+                class="profile__pencil-icon"
+                src="<%=require('./images/edit-avatar_pencil.svg')%>"
+                alt="Pencil icon"
+              />
+            </button>
+            <img class="profile__avatar" src="" alt="User's profile avatar" />
+          </div>
+          <!-- DELETED HARD-CODED DATA -->
+          <!-- <%=require('./images/avatar.jpg')%> -->
+          <!-- Bessie Coleman, Civil Aviator -->
           <div class="profile__data">
-            <h1 class="profile__name">Bessie Coleman</h1>
-            <p class="profile__description">Civil Aviator</p>
+            <h1 class="profile__name"></h1>
+            <p class="profile__description"></p>
             <button class="profile__edit-btn" type="button">
-              <img src="./images/edit_icon.svg" alt="Edit icon" />Edit Profile
+              <img
+                src="<%=require('./images/edit_icon.svg')%>"
+                alt="Edit icon"
+              />Edit Profile
             </button>
           </div>
           <button class="profile__new-post-btn" type="button">
             <img
               class="profile__plus-image"
-              src="./images/plus_icon.svg"
+              src="<%=require('./images/plus_icon.svg')%>"
               alt="Plus plus_icon"
             />
             New Post
@@ -153,12 +168,61 @@
             </li>
           </template>
         </section>
+        <!-- NEW MODAL FOR EDITING AVATAR -->
+        <div class="modal" id="avatar-modal">
+          <div class="modal__container">
+            <div class="modal__row">
+              <h2 class="modal__edit-profile-text">Edit profile avatar</h2>
+              <button
+                type="button"
+                class="modal__close-btn"
+                aria-label="Close modal"
+              ></button>
+            </div>
+            <form class="modal__form" id="edit-avatar-form" novalidate>
+              <label for="profile-avatar-input" class="modal__label"
+                >Profile Picture</label
+              >
+              <input
+                type="url"
+                minlength="2"
+                class="modal__input"
+                id="profile-avatar-input"
+                name="avatar"
+                placeholder="Paste the link to an image"
+                required
+              />
+              <span class="modal__error" id="profile-avatar-input-error"></span>
+              <button type="submit" class="modal__save-btn">Save</button>
+            </form>
+          </div>
+        </div>
+        <!-- NEW MODAL FOR DELETING IMAGE -->
+
+        <div class="modal" id="delete-modal">
+          <div class="modal__container modal__container--delete">
+            <button
+              type="button"
+              class="modal__close-btn modal__close-btn_type_delete--confirmation"
+              aria-label="Close modal"
+            ></button>
+            <h3 class="modal__edit-modal-text">
+              Are you sure you want to delete this image?
+            </h3>
+            <form class="modal__delete-form" id="delete-form">
+              <button type="submit" class="modal__save-btn modal__delete-btn">
+                Delete
+              </button>
+              <button type="button" class="modal__save-btn modal__cancel-btn">
+                Cancel
+              </button>
+            </form>
+          </div>
+        </div>
       </main>
       <footer class="footer">
         <p class="footer__box">2025 © Spots</p>
       </footer>
     </div>
-    <script src="./scripts/validation.js"></script>
-    <script src="./scripts/index.js"></script>
   </body>
 </html>
